@@ -1,0 +1,26 @@
+---
+- name: get installed vagrant version
+  shell: "vagrant --version | sed -e 's/Vagrant\\s\\+v\\?//'"
+  register: vagrant_version_result
+  ignore_errors: yes
+
+- name: set vagrant current version fact
+  set_fact:
+      vagrant_current_version: "{{ vagrant_version_result.stdout|default('') }}"
+
+- name: get latest stable vagrant tag
+  uri:
+    url: "{{ vagrant_release_api_url }}"
+  ignore_errors: yes
+  register: vagrant_github_result
+  when: vagrant_version == 'latest'
+
+- name: set vagrant version fact from latest tag
+  set_fact:
+       vagrant_version: "{{ vagrant_github_result.json.0.name|default(vagrant_default_version)|replace('v','') }}"
+  when: vagrant_version == 'latest'
+
+- name: set vagrant version fact from default version
+  set_fact:
+    vagrant_version: "{{ vagrant_default_version }}"
+  when: vagrant_version == '' or vagrant_version is none

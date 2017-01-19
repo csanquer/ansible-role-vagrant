@@ -1,0 +1,12 @@
+---
+- name: download vagrant packages
+  get_url:
+      url: "{{ vagrant_base_url }}/{{ vagrant_version }}/vagrant_{{ vagrant_version }}_x86_64.deb"
+      dest: "/tmp/vagrant_{{ vagrant_version }}_x86_64.deb"
+      mode: 0644
+  when: vagrant_current_version != vagrant_version
+
+- name: install vagrant debian packages
+  apt:
+    deb: "/tmp/vagrant_{{ vagrant_version }}_x86_64.deb"
+  when: vagrant_current_version != vagrant_version

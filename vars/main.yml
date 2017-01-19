@@ -1,0 +1,5 @@
+---
+vagrant_default_version: '1.9.1'
+vagrant_current_version:
+vagrant_base_url: https://releases.hashicorp.com/vagrant
+vagrant_release_api_url: https://api.github.com/repos/mitchellh/vagrant/tags

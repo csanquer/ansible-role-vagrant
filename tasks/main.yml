@@ -1,0 +1,8 @@
+---
+- include: version.yml
+  tags:
+    - vagrant
+
+- include: install.yml
+  tags:
+    - vagrant
