@@ -1,5 +1,5 @@
 ---
-- name: get installed vagrant version
+- name: get installed vagrant version # noqa 301
   shell: "vagrant --version | sed -e 's/Vagrant\\s\\+v\\?//'"
   register: vagrant_version_result
   ignore_errors: yes
@@ -23,4 +23,4 @@
 - name: set vagrant version fact from default version
   set_fact:
     vagrant_version: "{{ vagrant_default_version }}"
-  when: vagrant_version == '' or vagrant_version is none
+  when: not vagrant_version
